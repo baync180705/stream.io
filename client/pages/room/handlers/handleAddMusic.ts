@@ -4,7 +4,7 @@ import type { Dispatch, SetStateAction } from "react";
 
 interface AddMusicHandlers {
     setToastMessage: Dispatch<SetStateAction<null | string>>;
-    setQueue: Dispatch<SetStateAction<string[]>>;
+    setQueue: Dispatch<SetStateAction<File[]>>;
 }
 
 export const handleAddMusic = async (event: React.ChangeEvent<HTMLInputElement>, roomID: string, socket: Socket, setQueue: AddMusicHandlers['setQueue'], setToastMessage: AddMusicHandlers['setToastMessage']) => {
@@ -25,7 +25,7 @@ export const handleAddMusic = async (event: React.ChangeEvent<HTMLInputElement>,
         try{
           const res = await addMusicToTrackService(roomID, file.name);
           if(res){
-            setQueue((prevQueue) => [...prevQueue, file.name]); 
+            setQueue((prevQueue) => [...prevQueue, file]); 
             setToastMessage(`${file.name} added to the queue.`);
             socket.emit("track_stream", {roomID: roomID});
           }

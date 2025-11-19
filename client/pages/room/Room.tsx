@@ -12,7 +12,7 @@ import { handleAddMusic } from "./handlers/handleAddMusic";
 export const Room: React.FC = () => {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [members, setMembers] = useState<string[]>([]); 
-  const [queue, setQueue] = useState<string[]>([]); 
+  const [queue, setQueue] = useState<File[]>([]); 
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -59,7 +59,7 @@ export const Room: React.FC = () => {
             {/* Music Queue */}
             <div className="flex flex-col w-2/3 bg-white/10 p-4 rounded-md shadow-md">
               <h2 className="text-xl font-semibold mb-4">Music Queue</h2>
-              <MusicQueue queue={queue} onRemoveMusic={(music: string)=>handleRemoveMusic(music, roomID, socket, setQueue, setToastMessage)}/>
+              <MusicQueue queue={queue} onRemoveMusic={(music: File)=>handleRemoveMusic(music, roomID, socket, setQueue, setToastMessage)}/>
               <label
                 htmlFor="add-music"
                 className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition cursor-pointer text-center"

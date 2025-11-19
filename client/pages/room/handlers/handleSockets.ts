@@ -3,7 +3,7 @@ import { Socket } from 'socket.io-client';
 
 interface SocketHandlers {
     setMembers: Dispatch<SetStateAction<string[]>>;
-    setQueue: Dispatch<SetStateAction<string[]>>;
+    setQueue: Dispatch<SetStateAction<File[]>>;
 }
 
 export const handleSockets = (user:string, roomID: string, socket: Socket, setMembers: SocketHandlers['setMembers'], setQueue: SocketHandlers['setQueue'])=>{
@@ -12,7 +12,7 @@ export const handleSockets = (user:string, roomID: string, socket: Socket, setMe
       setMembers(userList);
     })
 
-    socket.on("updated_track", (trackList: string[])=>{
+    socket.on("updated_track", (trackList: File[])=>{
       setQueue(trackList);
     })
 }

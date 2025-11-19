@@ -4,12 +4,12 @@ import type { Dispatch, SetStateAction } from "react";
 
 interface RemoveMusicHandlers {
     setToastMessage: Dispatch<SetStateAction<null | string>>;
-    setQueue: Dispatch<SetStateAction<string[]>>;
+    setQueue: Dispatch<SetStateAction<File[]>>;
 }
 
-export const handleRemoveMusic = async (music: string, roomID: string, socket: Socket, setQueue: RemoveMusicHandlers['setQueue'], setToastMessage: RemoveMusicHandlers['setToastMessage']) => {
+export const handleRemoveMusic = async (music: File, roomID: string, socket: Socket, setQueue: RemoveMusicHandlers['setQueue'], setToastMessage: RemoveMusicHandlers['setToastMessage']) => {
     try {
-      const res = await removeMusicFromTrackService(roomID, music);
+      const res = await removeMusicFromTrackService(roomID, music.name);
       if (res) {
         setQueue((prevQueue) => prevQueue.filter((_,i) => i !== prevQueue.indexOf(music))); 
         setToastMessage(`${music} removed from the queue.`);
